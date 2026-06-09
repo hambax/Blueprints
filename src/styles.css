@@ -92,9 +92,13 @@ button {
 
 .blueprint-frame {
   position: absolute;
-  inset: 24px;
-  border: 1px solid rgba(233, 250, 255, 0.22);
-  border-radius: 24px;
+  inset: 10px;
+  border: 6px solid rgba(233, 250, 255, 0.28);
+  border-radius: 26px;
+  box-shadow:
+    inset 0 0 0 1px rgba(233, 250, 255, 0.34),
+    inset 0 0 0 12px rgba(3, 18, 35, 0.18),
+    0 0 0 1px rgba(2, 9, 18, 0.56);
 }
 
 .blueprint-frame::before,
@@ -131,14 +135,9 @@ button {
   text-transform: uppercase;
 }
 
-.ruler-label-top {
-  top: 44px;
-  left: 54px;
-}
-
 .ruler-label-right {
   top: 52%;
-  right: -18px;
+  right: 22px;
   transform: rotate(90deg);
 }
 
@@ -174,7 +173,7 @@ button {
   gap: 24px;
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 24px 0;
 }
 
 .brand-lockup,
@@ -256,7 +255,7 @@ button {
   width: min(1180px, calc(100% - 40px));
   min-height: 720px;
   margin: 0 auto;
-  padding: 92px 0 84px;
+  padding: 118px 0 84px;
 }
 
 .hero-copy {

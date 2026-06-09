@@ -24,7 +24,6 @@ export function Hero() {
   return (
     <section className="hero-section" id="top">
       <div className="hero-copy">
-        <p className="eyebrow">Self-contained business blueprints</p>
         <h1>Download polished AI-ready operating tools.</h1>
         <p className="hero-lede">
           Blueprint Platform packages the boring-but-critical parts of business into

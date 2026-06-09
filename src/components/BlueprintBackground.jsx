@@ -5,7 +5,6 @@ export function BlueprintBackground() {
       <div className="blueprint-grid blueprint-grid-major" />
       <div className="blueprint-frame" />
       <div className="blueprint-rulers">
-        <span className="ruler-label ruler-label-top">BP-001 / OPERATIONS TOOLKITS</span>
         <span className="ruler-label ruler-label-right">SYSTEM READY</span>
         <span className="ruler-mark mark-a" />
         <span className="ruler-mark mark-b" />

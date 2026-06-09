@@ -3,7 +3,7 @@ import { ArrowUpRight, Download, Sparkles } from "lucide-react";
 export function BlueprintCard({ kit }) {
   return (
     <article className="blueprint-card">
-      <div className="card-content" data-liquid-ignore>
+      <div className="card-content">
         <div className="card-topline">
           <span className="category-label">{kit.category}</span>
           <Sparkles aria-hidden="true" size={16} />
