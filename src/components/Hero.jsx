@@ -41,39 +41,48 @@ export function Hero({ featuredKits }) {
       </div>
 
       <div className="hero-apps" aria-label="Featured blueprint apps">
-        {featuredKits.map((kit) => (
-          <article
-            className="hero-panel hero-app-card"
-            key={kit.title}
-            onMouseLeave={resetPanelTilt}
-            onMouseMove={handlePanelPointerMove}
-          >
-            <div className="hero-panel-content">
-              <div className="panel-header">
-                <span>{kit.category}</span>
-                <span className="status-pill">{kit.effort}</span>
+        {featuredKits.map((kit) => {
+          const blueprintSlug = slugify(kit.title);
+          const blueprintPath = `${import.meta.env.BASE_URL}blueprints/${blueprintSlug}.md`;
+
+          return (
+            <article
+              className="hero-panel hero-app-card"
+              key={kit.title}
+              onMouseLeave={resetPanelTilt}
+              onMouseMove={handlePanelPointerMove}
+            >
+              <div className="hero-panel-content">
+                <div className="panel-header">
+                  <span>{kit.category}</span>
+                  <span className="status-pill">{kit.effort}</span>
+                </div>
+                <Sparkles aria-hidden="true" className="hero-card-icon" size={18} />
+                <h2>{kit.hook}</h2>
+                <p>{kit.promise}</p>
+                <ul className="hero-bullet-list">
+                  {kit.bullets.map((bullet) => (
+                    <li key={bullet}>{bullet}</li>
+                  ))}
+                </ul>
+                <div className="hero-card-actions">
+                  <a className="text-link" href="#catalog">
+                    Preview kit
+                    <ArrowRight aria-hidden="true" size={16} />
+                  </a>
+                  <a
+                    className="download-link"
+                    href={blueprintPath}
+                    download={`${blueprintSlug}.md`}
+                  >
+                    <Download aria-hidden="true" size={16} />
+                    Download blueprint
+                  </a>
+                </div>
               </div>
-              <Sparkles aria-hidden="true" className="hero-card-icon" size={18} />
-              <h2>{kit.hook}</h2>
-              <p>{kit.promise}</p>
-              <ul className="hero-bullet-list">
-                {kit.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
-                ))}
-              </ul>
-              <div className="hero-card-actions">
-                <a className="text-link" href="#catalog">
-                  Preview kit
-                  <ArrowRight aria-hidden="true" size={16} />
-                </a>
-                <a className="download-link" href={`/blueprints/${slugify(kit.title)}.md`} download={`${slugify(kit.title)}.md`}>
-                  <Download aria-hidden="true" size={16} />
-                  Download blueprint
-                </a>
-              </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </div>
     </section>
   );

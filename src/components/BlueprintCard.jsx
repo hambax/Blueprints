@@ -1,6 +1,9 @@
 import { ArrowUpRight, ChevronDown, Download, Sparkles } from "lucide-react";
 
 export function BlueprintCard({ isOpen = true, kit, onToggle }) {
+  const blueprintSlug = slugify(kit.title);
+  const blueprintPath = `${import.meta.env.BASE_URL}blueprints/${blueprintSlug}.md`;
+
   return (
     <article className={isOpen ? "blueprint-card open" : "blueprint-card compact"}>
       <button
@@ -10,16 +13,18 @@ export function BlueprintCard({ isOpen = true, kit, onToggle }) {
         onClick={onToggle}
       >
         <span className="summary-copy">
-          <span className="category-label">{kit.pain}</span>
           <strong>{kit.hook}</strong>
           <span>{kit.title}</span>
         </span>
-        <ChevronDown aria-hidden="true" className="accordion-chevron" size={20} />
+        <span className="summary-badges">
+          <span className="category-label">{kit.pain}</span>
+          <span className="setup-time">{kit.effort}</span>
+          <ChevronDown aria-hidden="true" className="accordion-chevron" size={20} />
+        </span>
       </button>
 
       <div className="card-content" aria-hidden={!isOpen}>
         <div className="card-topline">
-          <span className="category-label">{kit.pain}</span>
           <Sparkles aria-hidden="true" size={16} />
         </div>
         <h3>{kit.hook}</h3>
@@ -35,15 +40,14 @@ export function BlueprintCard({ isOpen = true, kit, onToggle }) {
           ))}
         </div>
         <div className="card-footer">
-          <span className="setup-time">{kit.effort}</span>
           <div className="card-actions">
             <a className="icon-link" href="#preview" aria-label={`Preview ${kit.title}`}>
               <ArrowUpRight aria-hidden="true" size={17} />
             </a>
             <a
               className="download-link"
-              href={`/blueprints/${slugify(kit.title)}.md`}
-              download={`${slugify(kit.title)}.md`}
+              href={blueprintPath}
+              download={`${blueprintSlug}.md`}
               aria-label={`Download ${kit.title}`}
             >
               <Download aria-hidden="true" size={16} />

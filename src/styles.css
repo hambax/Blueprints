@@ -776,7 +776,7 @@ h2 {
 
 .summary-copy {
   display: grid;
-  grid-template-columns: auto minmax(180px, 0.45fr) 1fr;
+  grid-template-columns: minmax(180px, 0.45fr) 1fr;
   align-items: center;
   gap: 14px;
   min-width: 0;
@@ -799,8 +799,22 @@ h2 {
   white-space: nowrap;
 }
 
+.summary-badges {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-width: max-content;
+}
+
+.summary-badges .category-label,
+.summary-badges .setup-time {
+  white-space: nowrap;
+}
+
 .accordion-chevron {
   color: var(--brand-accent-strong);
+  flex: 0 0 auto;
   transition: transform 190ms ease;
 }
 
@@ -833,6 +847,8 @@ h2 {
 }
 
 .card-topline {
+  display: flex;
+  justify-content: flex-end;
   min-height: 34px;
   color: var(--brand-accent-strong);
 }
@@ -896,6 +912,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-left: auto;
 }
 
 .icon-link,
@@ -1082,8 +1099,14 @@ h2 {
   }
 
   .accordion-summary {
+    grid-template-columns: 1fr;
     min-height: 86px;
     padding: 16px 18px;
+  }
+
+  .summary-badges {
+    justify-content: flex-end;
+    width: 100%;
   }
 
   .summary-copy {
