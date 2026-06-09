@@ -1,9 +1,23 @@
-import { ArrowUpRight, Download, Sparkles } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Download, Sparkles } from "lucide-react";
 
-export function BlueprintCard({ kit }) {
+export function BlueprintCard({ isOpen = true, kit, onToggle }) {
   return (
-    <article className="blueprint-card">
-      <div className="card-content">
+    <article className={isOpen ? "blueprint-card open" : "blueprint-card compact"}>
+      <button
+        className="accordion-summary"
+        type="button"
+        aria-expanded={isOpen}
+        onClick={onToggle}
+      >
+        <span className="summary-copy">
+          <span className="category-label">{kit.pain}</span>
+          <strong>{kit.hook}</strong>
+          <span>{kit.title}</span>
+        </span>
+        <ChevronDown aria-hidden="true" className="accordion-chevron" size={20} />
+      </button>
+
+      <div className="card-content" aria-hidden={!isOpen}>
         <div className="card-topline">
           <span className="category-label">{kit.pain}</span>
           <Sparkles aria-hidden="true" size={16} />

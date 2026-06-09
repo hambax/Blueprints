@@ -616,6 +616,33 @@ h2 {
   max-width: 760px;
 }
 
+.filter-panel {
+  position: relative;
+  z-index: 1;
+  margin: 30px 0 38px;
+  padding: 18px;
+  border: 1px solid rgba(155, 215, 255, 0.18);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 16% 0%, rgba(38, 168, 255, 0.14), transparent 32%),
+    linear-gradient(135deg, rgba(8, 32, 55, 0.88), rgba(2, 13, 28, 0.8));
+  box-shadow:
+    0 28px 90px rgba(0, 6, 18, 0.58),
+    0 0 42px rgba(0, 26, 50, 0.44),
+    inset 0 1px 0 rgba(235, 250, 255, 0.13);
+  backdrop-filter: blur(22px) saturate(1.1);
+}
+
+.filter-panel::before {
+  position: absolute;
+  inset: -10px;
+  z-index: -1;
+  border-radius: 30px;
+  background: rgba(0, 8, 19, 0.42);
+  filter: blur(18px);
+  content: "";
+}
+
 .pain-filter-bar,
 .category-bar {
   display: flex;
@@ -624,11 +651,13 @@ h2 {
 }
 
 .pain-filter-bar {
-  margin: 30px 0 14px;
+  margin: 0 0 14px;
 }
 
 .category-bar {
-  margin: 22px 0 34px;
+  margin: 16px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(235, 250, 255, 0.1);
 }
 
 .pain-chip,
@@ -638,7 +667,8 @@ h2 {
   border: 1px solid rgba(235, 250, 255, 0.14);
   border-radius: var(--radius-control);
   color: var(--text-secondary);
-  background: rgba(3, 16, 32, 0.44);
+  background: rgba(2, 14, 29, 0.72);
+  box-shadow: 0 12px 26px rgba(0, 8, 20, 0.24);
   cursor: pointer;
   transition: color 180ms ease, transform 180ms ease, background 180ms ease, border-color 180ms ease;
 }
@@ -668,7 +698,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 0 0 8px;
+  margin: 0;
 }
 
 .persona-strip span {
@@ -676,7 +706,8 @@ h2 {
   border: 1px solid rgba(235, 250, 255, 0.1);
   border-radius: 999px;
   color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(1, 11, 24, 0.66);
+  box-shadow: 0 10px 22px rgba(0, 8, 20, 0.2);
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -710,22 +741,71 @@ h2 {
   text-transform: uppercase;
 }
 
-.catalog-grid {
+.accordion-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 12px;
 }
 
 .blueprint-card {
-  min-height: 330px;
-  transition: transform 190ms ease, border-color 190ms ease, background 190ms ease, box-shadow 190ms ease;
+  min-height: 0;
+  transition: border-color 190ms ease, background 190ms ease, box-shadow 190ms ease;
 }
 
 .blueprint-card:hover {
-  transform: translateY(-8px) scale(1.025);
   border-color: rgba(99, 199, 255, 0.52);
   background: var(--card-bg-strong);
   box-shadow: 0 30px 90px rgba(0, 9, 20, 0.56);
+}
+
+.accordion-summary {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  min-height: 76px;
+  padding: 16px 20px;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.summary-copy {
+  display: grid;
+  grid-template-columns: auto minmax(180px, 0.45fr) 1fr;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.summary-copy strong {
+  overflow: hidden;
+  font-size: 1.15rem;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summary-copy > span:last-child {
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accordion-chevron {
+  color: var(--brand-accent-strong);
+  transition: transform 190ms ease;
+}
+
+.blueprint-card.open .accordion-chevron {
+  transform: rotate(180deg);
 }
 
 .card-content {
@@ -733,6 +813,23 @@ h2 {
   flex-direction: column;
   min-height: 330px;
   padding: 20px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: max-height 260ms ease, opacity 180ms ease, transform 220ms ease, padding 220ms ease;
+}
+
+.blueprint-card.open .card-content {
+  max-height: 720px;
+  padding: 0 20px 20px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.blueprint-card.compact .card-content {
+  min-height: 0;
+  padding-block: 0;
 }
 
 .card-topline {
@@ -887,10 +984,6 @@ h2 {
     min-height: auto;
   }
 
-  .catalog-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .site-footer {
     grid-template-columns: 1fr;
   }
@@ -901,12 +994,12 @@ h2 {
   .hero-section,
   .catalog-section,
   .site-footer {
-    width: min(100% - 28px, 1180px);
+    width: min(100% - 48px, 1180px);
   }
 
   .site-header {
     gap: 12px;
-    padding-top: 14px;
+    padding-top: 18px;
   }
 
   .brand-lockup span:last-child {
@@ -915,22 +1008,24 @@ h2 {
 
   .nav-cta {
     min-height: 38px;
-    padding: 0 12px;
+    padding: 0 14px;
     font-size: 0.8rem;
   }
 
   .hero-section {
-    padding: 58px 0 54px;
+    padding: 74px 0 54px;
   }
 
   h1 {
-    font-size: clamp(3.1rem, 15vw, 5rem);
+    font-size: clamp(2.75rem, 12.8vw, 4.25rem);
+    line-height: 0.94;
   }
 
   .hero-lede,
   .section-heading p,
   .site-footer > p {
-    font-size: 0.98rem;
+    font-size: 0.94rem;
+    line-height: 1.65;
   }
 
   .hero-actions {
@@ -940,10 +1035,11 @@ h2 {
 
   .button {
     width: 100%;
+    min-height: 46px;
   }
 
   .hero-panel {
-    padding: 16px;
+    padding: 18px;
   }
 
   .hero-app-card {
@@ -954,9 +1050,26 @@ h2 {
     font-size: 2rem;
   }
 
+  .filter-panel {
+    margin: 24px 0 34px;
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .filter-panel::before {
+    inset: -7px;
+    border-radius: 24px;
+  }
+
+  .pain-filter-bar,
+  .category-bar {
+    gap: 8px;
+  }
+
   .pain-chip {
-    flex: 1 1 auto;
-    min-width: 120px;
+    flex: 1 1 calc(50% - 8px);
+    min-width: 118px;
+    padding: 0 12px;
   }
 
   .group-heading {
@@ -964,12 +1077,27 @@ h2 {
     flex-direction: column;
   }
 
-  .catalog-grid {
-    grid-template-columns: 1fr;
+  .blueprint-card:hover {
+    box-shadow: var(--shadow-glass);
   }
 
-  .blueprint-card:hover {
-    transform: translateY(-5px) scale(1.012);
+  .accordion-summary {
+    min-height: 86px;
+    padding: 16px 18px;
+  }
+
+  .summary-copy {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .summary-copy strong,
+  .summary-copy > span:last-child {
+    white-space: normal;
+  }
+
+  .blueprint-card.open .card-content {
+    padding: 0 18px 18px;
   }
 
   .card-footer {
@@ -987,8 +1115,9 @@ h2 {
   }
 
   .blueprint-frame {
-    inset: 12px;
-    border-radius: 18px;
+    inset: 8px;
+    border-width: 4px;
+    border-radius: 20px;
   }
 
   .ruler-label-right,
