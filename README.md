@@ -17,7 +17,6 @@ npm run build
 
 The app is designed for static hosting such as GitHub Pages.
 
-## Third-party Assets
+## Visual System
 
-- `public/vendor/liquidgl/liquidGL.js` is vendored from [`naughtyduk/liquidGL`](https://github.com/naughtyduk/liquidGL), MIT licensed.
-- `html2canvas` is loaded from CDN because it is required by liquidGL.
+The UI uses CSS glass surfaces, blueprint grid linework, and hover tilt interactions.

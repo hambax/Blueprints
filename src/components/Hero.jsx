@@ -43,12 +43,12 @@ export function Hero() {
       </div>
 
       <aside
-        className="hero-panel liquid-card"
+        className="hero-panel"
         aria-label="Blueprint platform summary"
         onMouseLeave={resetPanelTilt}
         onMouseMove={handlePanelPointerMove}
       >
-        <div className="hero-panel-content" data-liquid-ignore>
+        <div className="hero-panel-content">
           <div className="panel-header">
             <span>Blueprint kit anatomy</span>
             <span className="status-pill">v1 library</span>
