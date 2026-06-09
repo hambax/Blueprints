@@ -1,6 +1,6 @@
-import { ArrowRight, Boxes, Palette, ShieldCheck } from "lucide-react";
+import { ArrowRight, Download, Sparkles } from "lucide-react";
 
-export function Hero() {
+export function Hero({ featuredKits }) {
   const handlePanelPointerMove = (event) => {
     const panel = event.currentTarget;
     const rect = panel.getBoundingClientRect();
@@ -24,65 +24,61 @@ export function Hero() {
   return (
     <section className="hero-section" id="top">
       <div className="hero-copy">
-        <h1>Download polished AI-ready operating tools.</h1>
+        <h1>Business admin, already solved.</h1>
         <p className="hero-lede">
-          Blueprint Platform packages the boring-but-critical parts of business into
-          elegant mini web apps, templates, and setup instructions your own LLM can
-          adapt to your company.
+          Polished, downloadable operating kits for owners who are done losing nights
+          to invoices, follow-up, cashflow, and the small work that quietly eats the week.
         </p>
         <div className="hero-actions">
           <a className="button button-primary" href="#catalog">
-            Explore blueprints
+            Find your blueprint
             <ArrowRight aria-hidden="true" size={18} />
           </a>
-          <a className="button button-secondary" href="#method">
-            See the method
+          <a className="button button-secondary" href="#all-kits">
+            Browse all kits
           </a>
         </div>
       </div>
 
-      <aside
-        className="hero-panel"
-        aria-label="Blueprint platform summary"
-        onMouseLeave={resetPanelTilt}
-        onMouseMove={handlePanelPointerMove}
-      >
-        <div className="hero-panel-content">
-          <div className="panel-header">
-            <span>Blueprint kit anatomy</span>
-            <span className="status-pill">v1 library</span>
-          </div>
-          <div className="stack-preview">
-            <div className="preview-row">
-              <Boxes aria-hidden="true" size={20} />
-              <div>
-                <strong>Reusable modules</strong>
-                <span>Web UI, prompts, schemas, and setup notes.</span>
+      <div className="hero-apps" aria-label="Featured blueprint apps">
+        {featuredKits.map((kit) => (
+          <article
+            className="hero-panel hero-app-card"
+            key={kit.title}
+            onMouseLeave={resetPanelTilt}
+            onMouseMove={handlePanelPointerMove}
+          >
+            <div className="hero-panel-content">
+              <div className="panel-header">
+                <span>{kit.category}</span>
+                <span className="status-pill">{kit.effort}</span>
+              </div>
+              <Sparkles aria-hidden="true" className="hero-card-icon" size={18} />
+              <h2>{kit.hook}</h2>
+              <p>{kit.promise}</p>
+              <ul className="hero-bullet-list">
+                {kit.bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
+                ))}
+              </ul>
+              <div className="hero-card-actions">
+                <a className="text-link" href="#catalog">
+                  Preview kit
+                  <ArrowRight aria-hidden="true" size={16} />
+                </a>
+                <a className="download-link" href={`/blueprints/${slugify(kit.title)}.md`} download={`${slugify(kit.title)}.md`}>
+                  <Download aria-hidden="true" size={16} />
+                  Download blueprint
+                </a>
               </div>
             </div>
-            <div className="preview-row">
-              <Palette aria-hidden="true" size={20} />
-              <div>
-                <strong>Brand tokens</strong>
-                <span>Accent color, radius, typography, and spacing in one place.</span>
-              </div>
-            </div>
-            <div className="preview-row">
-              <ShieldCheck aria-hidden="true" size={20} />
-              <div>
-                <strong>Domain patterns</strong>
-                <span>Built around real business workflows and compliance sense.</span>
-              </div>
-            </div>
-          </div>
-          <div className="blueprint-mini-map" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
-        </div>
-      </aside>
+          </article>
+        ))}
+      </div>
     </section>
   );
+}
+
+function slugify(value) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }

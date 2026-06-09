@@ -5,11 +5,16 @@ export function BlueprintCard({ kit }) {
     <article className="blueprint-card">
       <div className="card-content">
         <div className="card-topline">
-          <span className="category-label">{kit.category}</span>
+          <span className="category-label">{kit.pain}</span>
           <Sparkles aria-hidden="true" size={16} />
         </div>
-        <h3>{kit.title}</h3>
-        <p>{kit.outcome}</p>
+        <h3>{kit.hook}</h3>
+        <p>{kit.promise}</p>
+        <ul className="card-bullet-list">
+          {kit.bullets.map((bullet) => (
+            <li key={bullet}>{bullet}</li>
+          ))}
+        </ul>
         <div className="asset-list" aria-label={`${kit.title} included assets`}>
           {kit.includes.map((item) => (
             <span key={item}>{item}</span>
